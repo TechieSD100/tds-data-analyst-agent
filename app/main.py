@@ -7,8 +7,6 @@ from typing import List
 from starlette.requests import Request
 from app.analysis import run_analysis
 from app.utils import read_text_file
-from flask import Flask
-import os
 
 app = FastAPI(title="TDS Data Analyst Agent")
 
@@ -44,8 +42,3 @@ async def analyze(request: Request, files: List[UploadFile] = File(...)):
     except Exception as e:
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
-
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port)
